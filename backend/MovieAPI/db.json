@@ -1,0 +1,6 @@
+{
+    "movies": [
+      { "id": 1, "title": "cat", "liked": false },
+      { "id": 2, "title": "dog", "liked": false }
+    ]
+}
