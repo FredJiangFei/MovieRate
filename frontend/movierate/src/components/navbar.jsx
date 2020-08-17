@@ -1,9 +1,15 @@
 import React, { Component } from 'react';
 import { Link, NavLink } from 'react-router-dom';
+import auth from '../services/authService';
 
 class NavBar extends Component {
+  logout = () => {
+    auth.logout();
+  };
+
   render() {
-    var user = {}
+    const user = auth.getCurrentUser();
+    
     return (
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
         <Link className="navbar-brand" to="/">
