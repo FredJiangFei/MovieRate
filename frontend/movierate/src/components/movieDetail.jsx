@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 class MovieDetail extends Component{
     render(){
         return(
-            <h1>{this.props.match.params.id}</h1>
+            <React.Fragment>
+                <h1>{this.props.match.params.id}</h1>
+                <Link to="/movies">Back</Link>
+            </React.Fragment>
         )
     }
 }

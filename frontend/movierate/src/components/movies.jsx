@@ -8,9 +8,7 @@ class Movies extends Component {
     movies: [],
   }
 
-  getPagedData = () => {
-
-  }
+  getPagedData = () => {}
 
   async componentDidMount() {
     const { data: movies } = await getMovies()
@@ -20,8 +18,8 @@ class Movies extends Component {
   }
 
   render() {
-    let { movies } = this.state;  
-    const totalCount = movies.length;
+    let { movies } = this.state
+    const totalCount = movies.length
 
     return (
       <React.Fragment>
@@ -31,17 +29,15 @@ class Movies extends Component {
         <div className="row">
           <div className="col">
             <Link
-                to="/movies/new"
-                className="btn btn-primary"
-                style={{ marginBottom: 20 }}
-              >
+              to="/movies/new"
+              className="btn btn-primary"
+              style={{ marginBottom: 20 }}
+            >
               New Movie
             </Link>
             <p>Showing {totalCount} movies.</p>
 
-            <MoviesTable
-              movies={movies}
-            />
+            <MoviesTable movies={movies} />
           </div>
         </div>
       </React.Fragment>

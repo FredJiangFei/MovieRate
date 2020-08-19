@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
 import auth from '../services/authService'
+import { NavLink } from 'react-router-dom';
 
 class Login extends Component {
   login = () => {
-    auth.login()
+    auth.login();
+    window.location = '/';
   }
 
   render() {
@@ -13,6 +15,9 @@ class Login extends Component {
         <button className="btn btn-primary" onClick={() => this.login()}>
           Login
         </button>
+        <NavLink className="nav-item nav-link" to="/register">
+          Register
+        </NavLink>
       </React.Fragment>
     )
   }

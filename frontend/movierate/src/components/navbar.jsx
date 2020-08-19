@@ -1,15 +1,14 @@
-import React, { Component } from 'react';
-import { Link, NavLink } from 'react-router-dom';
-import auth from '../services/authService';
+import React, { Component } from 'react'
+import { Link, NavLink } from 'react-router-dom'
+import auth from '../services/authService'
 
 class NavBar extends Component {
   logout = () => {
-    auth.logout();
-  };
+    auth.logout()
+    window.location = '/login'
+  }
 
   render() {
-    const user = auth.getCurrentUser();
-    
     return (
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
         <Link className="navbar-brand" to="/">
@@ -28,40 +27,19 @@ class NavBar extends Component {
         </button>
         <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
           <div className="navbar-nav d-flex w-100">
-            {user && (
-              <React.Fragment>
-                <NavLink className="nav-item nav-link" to="/movies">
-                  Movies
-                </NavLink>
-                <NavLink className="nav-item nav-link" to="/customers">
-                  Customers
-                </NavLink>
-                <NavLink className="nav-item nav-link" to="/rentals">
-                  Rentals
-                </NavLink>
-              </React.Fragment>
-            )}
-
+            <React.Fragment>
+              <NavLink className="nav-item nav-link" to="/movies">
+                Movies
+              </NavLink>
+            </React.Fragment>
             <span className="fill-remaining-space" />
-            {!user && (
-              <React.Fragment>
-                <NavLink className="nav-item nav-link" to="/login">
-                  Login
-                </NavLink>
-                <NavLink className="nav-item nav-link" to="/register">
-                  Register
-                </NavLink>
-              </React.Fragment>
-            )}
-            {user && (
-              <span
-                className="hand"
-                onClick={() => this.logout()}
-                style={{ marginTop: 8 }}
-              >
-                Logout
-              </span>
-            )}
+            <span
+              className="hand"
+              onClick={() => this.logout()}
+              style={{ marginTop: 8 }}
+            >
+              Logout
+            </span>
           </div>
         </div>
       </nav>
