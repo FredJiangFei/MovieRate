@@ -35,7 +35,7 @@ class NavBar extends Component {
             <span className="fill-remaining-space" />
             <span
               className="hand"
-              onClick={() => this.logout()}
+              onClick={this.logout}
               style={{ marginTop: 8 }}
             >
               Logout

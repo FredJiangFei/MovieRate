@@ -1,11 +1,15 @@
-import React, { Component } from 'react'
-import { getMovies } from '../services/movieService'
-import { Link } from 'react-router-dom'
-import MoviesTable from './moviesTable'
+import React, { Component } from 'react';
+import { getMovies } from '../services/movieService';
+import { Link } from 'react-router-dom';
+import MoviesTable from './moviesTable';
+import Pagination from '../common/pagination';
+import { paginate } from '../utils/paginate';
 
 class Movies extends Component {
   state = {
     movies: [],
+    pageSize : 3,
+    currentPage: 1
   }
 
   getPagedData = () => {}
@@ -17,8 +21,30 @@ class Movies extends Component {
     })
   }
 
+  handleDelete = (m) => {
+    let movies = this.state.movies.filter((x) => x.id !== m.id)
+    this.setState({ movies })
+  }
+
+  handleLike = (m) => {
+    const movies = [...this.state.movies]
+    const index = movies.indexOf(m)
+    movies[index] = { ...movies[index] }
+    movies[index].liked = !movies[index].liked
+    this.setState({
+      movies,
+    })
+  }
+
+  handlePageChange = (n) => {
+    this.setState({
+      currentPage: n
+    });
+  }
+
   render() {
-    let { movies } = this.state
+    let { movies: allMovies, pageSize, currentPage } = this.state
+    const movies = paginate(allMovies, currentPage, pageSize);
     const totalCount = movies.length
 
     return (
@@ -35,9 +61,22 @@ class Movies extends Component {
             >
               New Movie
             </Link>
-            <p>Showing {totalCount} movies.</p>
 
-            <MoviesTable movies={movies} />
+            {totalCount > 0 && <p>Showing {totalCount} movies.</p>}
+            {totalCount === 0 && <p>No movies.</p>}
+
+            <MoviesTable
+              movies={movies}
+              onDelete={this.handleDelete}
+              handleLike={this.handleLike}
+            />
+
+            <Pagination
+              itemsCount={allMovies.length}
+              pageSize={pageSize}
+              currentPage={currentPage}
+              onPageChange={this.handlePageChange}
+            ></Pagination>
           </div>
         </div>
       </React.Fragment>
