@@ -4,20 +4,23 @@ import { Link } from 'react-router-dom';
 import MoviesTable from './moviesTable';
 import Pagination from '../common/pagination';
 import { paginate } from '../utils/paginate';
+import { getGenres } from '../services/genreService';
+import ListGroup from '../common/listGroup';
 
 class Movies extends Component {
   state = {
     movies: [],
+    genres: [],
     pageSize : 3,
     currentPage: 1
   }
 
-  getPagedData = () => {}
-
   async componentDidMount() {
     const { data: movies } = await getMovies()
+    const { data: genres } = await getGenres()
     this.setState({
       movies,
+      genres
     })
   }
 
@@ -43,7 +46,7 @@ class Movies extends Component {
   }
 
   render() {
-    let { movies: allMovies, pageSize, currentPage } = this.state
+    let { movies: allMovies, pageSize, currentPage, genres } = this.state
     const movies = paginate(allMovies, currentPage, pageSize);
     const totalCount = movies.length
 
@@ -53,6 +56,9 @@ class Movies extends Component {
           <h2>Movive Components</h2>
         </div>
         <div className="row">
+          <div className="col-2">
+            <ListGroup data={genres} ></ListGroup>
+          </div>
           <div className="col">
             <Link
               to="/movies/new"

@@ -21,6 +21,11 @@ class MoviesTable extends Component {
       content: (m) => <Like movie={m} onClick={this.props.handleLike}/>,
     },
     {
+      key: 'genre',
+      label: 'Genre',
+      content: (m) => <span>{ m.genre }</span>,
+    },
+    {
       key: 'delete',
       label: 'Delete',
       content: (m) => (
